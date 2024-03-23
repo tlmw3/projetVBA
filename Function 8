@@ -1,0 +1,123 @@
+8. Write a procedure named MomentumStratImplementation that:
+ Stores in an array variable named Results the time series of the returns of portfolios P1 to P5;
+ Stores in an array variable named cumResults the time series of the cumulated returns of portfolios P1 to P5. 
+The cumulated return of portfolio Pi from month 1 (rst month) to month t must be computed as the sum of the monthly 
+(discrete) returns of that portfolio from month 1 to month t (included);
+ Stores in an array variable named LSResults the time series of the returns of the portfolio long P5 and short P1;
+ Stores in an array variable named cumLSResults the time series of the cumulated returns of the long P5 short P1 portfolio;
+ Reports the content of the variables Results, cumResults, LSResults, and cumLSResults in the relevant ranges in the 
+"Results" worksheet.
+
+'Question 8:
+Sub MomentumStratImplementation()
+
+' Feuilles de calcul
+Dim wsData As Worksheet            ' Feuille de données
+Dim wsResults As Worksheet         ' Feuille de résultats
+
+' Variables pour le traitement des données
+Dim nbDate As Integer              ' Nombre de lignes de données
+Dim nbStocks As Integer            ' Nombre de colonnes d'actions
+Dim data() As Variant               ' Tableau pour stocker les données de la feuille de calcul
+Dim i As Integer                   ' Variable pour la boucle
+Dim j As Integer                   ' Variable pour la boucle
+Dim dataT() As Variant              ' Tableau temporaire pour stocker les données sur les 11 mois précédents
+
+' Variables pour les calculs
+Dim t As Integer                   ' Variable pour la boucle principale
+Dim returns() As Variant            ' Tableau pour stocker les rendements
+Dim mounths As Integer             ' Variable pour la boucle sur les mois
+Dim Stocks As Integer              ' Variable pour la boucle sur les actions
+Dim signals() As Variant            ' Tableau pour stocker les signaux
+Dim index() As Variant              ' Tableau pour stocker l'index
+Dim indexR As Range                ' Plage pour l'index trié
+Dim indexS() As Variant             ' Tableau pour stocker l'index trié
+Dim portfVector() As Variant        ' Vecteur pour le portefeuille
+Dim PF As Integer                  ' Variable pour la boucle sur les portefeuilles
+Dim weights() As Variant            ' Tableau pour stocker les poids
+Dim Results() As Variant            ' Tableau pour stocker les résultats
+Dim cumResults() As Variant         ' Tableau pour stocker les résultats cumulatifs
+Dim LSResults() As Variant          ' Tableau pour stocker les rendements long-short
+Dim cumLSResults() As Variant       ' Tableau pour stocker les rendements long-short cumulatifs
+
+
+' Définition des feuilles de calcul de données et de résultats
+Set wsData = Worksheets(1)
+Set wsResults = Worksheets(2)
+
+' Détermination du nombre de lignes de données et de colonnes d'actions
+nbDate = wsData.Cells(wsData.Rows.Count, 1).End(xlUp).Row - 1 ' Nombre de lignes de données (moins l'en-tête)
+nbStocks = wsData.Cells(1, 1).End(xlToRight).Column - 1 ' Nombre de colonnes d'actions (moins l'en-tête)
+
+' Vérification si le nombre d'actions est égal à 100 pour effectuer les calculs
+If nbStocks <> 100 Then
+    MsgBox "Il n'y a pas le bon noombre d'actions pour réaliser les calculs"
+    Exit Sub
+End If
+
+' Transfert des données de la feuille de calcul vers un tableau en mémoire
+ReDim data(1 To nbDate, 1 To nbStocks)
+For i = 1 To nbDate
+    For j = 1 To nbStocks
+        data(i, j) = wsData.Cells(i + 1, j + 1)
+    Next j
+Next i
+
+' Initialisation des tableaux pour stocker les résultats
+ReDim Results(1 To nbDate - 12, 1 To 5)
+ReDim cumResults(1 To nbDate - 12, 1 To 5)
+ReDim LSResults(1 To nbDate - 12)
+ReDim cumLSResults(1 To nbDate - 12)
+
+' Boucle principale pour chaque intervalle de 12 mois
+For t = 1 To nbDate - 12
+
+    ' Extraction des rendements pour l'intervalle de 12 mois
+    ReDim returns(1 To nbStocks)
+    For Stocks = 1 To nbStocks
+        returns(Stocks) = data(t + 11, Stocks)
+    Next Stocks
+    
+    ' Création d'une matrice temporaire pour les 11 mois précédents
+    ReDim dataT(1 To 11, 1 To nbStocks)
+    For mounths = 1 To 11
+        For Stocks = 1 To nbStocks
+            dataT(mounths, Stocks) = data(t + mounths - 1, Stocks)
+        Next Stocks
+    Next mounths
+    
+    ' Génération des signaux et création d'un index
+    signals = momSignalVector(dataT)
+    index = createIndex(signals)
+    
+    'Tri par ordre croissant du vecteur des signaux
+    indexS = WorksheetFunction.Sort(index, 2)
+    
+    ' Attribution des actions à chaque portefeuille
+    portfVector = assignToPF(indexS)
+    
+    ' Calcul des rendements pour chaque portefeuille
+    For PF = 1 To 5
+        weights = weightsVector(portfVector, PF)
+        Results(t, PF) = portfolioReturn(returns, weights)
+        If t = 1 Then
+            cumResults(t, PF) = portfolioReturn(returns, weights)
+        Else
+            cumResults(t, PF) = portfolioReturn(returns, weights) + cumResults(t - 1, PF)
+        End If
+    Next PF
+    
+    ' Calcul des rendements long-short
+    LSResults(t) = Results(t, 5) - Results(t, 1)
+    cumLSResults(t) = cumResults(t, 5) - cumResults(t, 1)
+    
+Next t
+
+
+' Stockage des résultats dans la feuille de calcul des résultats
+wsResults.Cells(2, 2).Resize(nbDate - 12, 5).Value = Results
+wsResults.Cells(2, 8).Resize(nbDate - 12, 5).Value = cumResults
+wsResults.Cells(2, 14).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(LSResults)
+wsResults.Cells(2, 15).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(cumLSResults)
+
+End Sub
