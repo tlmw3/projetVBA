@@ -1,9 +1,9 @@
-
-Function extractColumn(Matrix() As Double, colIndex As Integer) As Double()
+'Question 1:
+Function extractColumn(Matrix() As Variant, colIndex As Integer) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer        ' Nombre de lignes dans la matrice
 Dim i As Integer        ' Variable de boucle
-Dim Col() As Double    ' Tableau pour stocker la colonne extraite
+Dim Col() As Variant    ' Tableau pour stocker la colonne extraite
     
 ' Nombre de lignes dans la matrice
 n = UBound(Matrix, 1)
@@ -20,9 +20,9 @@ Next i
 extractColumn = Col()
 End Function
 'Question 2:
-Function computeSignal(Ri() As Double) As Double
+Function computeSignal(Ri() As Variant) As Variant
 ' Déclaration des variables locales
-Dim s As Double    ' Variable pour stocker la somme des éléments du vecteur
+Dim s As Variant    ' Variable pour stocker la somme des éléments du vecteur
     
 ' Calcul de la somme des éléments du vecteur d'entrée
 s = WorksheetFunction.Sum(Ri)
@@ -31,45 +31,35 @@ s = WorksheetFunction.Sum(Ri)
 computeSignal = s
 End Function
 'Question 3:
-Function monSignalVector(data() As Double) As Double()
+Function momSignalVector(data() As Variant) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer           ' Nombre de colonnes dans la matrice de données
-Dim signal() As Double     ' Vecteur de signaux
-Dim Ri() As Double         ' Vecteur temporaire pour stocker une colonne de données
+Dim signal() As Variant     ' Vecteur de signaux
+Dim Ri() As Variant         ' Vecteur temporaire pour stocker une colonne de données
 Dim i As Integer           ' Variable de boucle
-Dim Dset() As Double    'Vecteur des 10 dernières rentabilités pour une colonne
 ' Détermination du nombre de colonnes dans la matrice de données
 n = UBound(data, 2)
-
-l = UBound(data, 1)
 
 ' Redimensionnement du vecteur de signaux pour qu'il ait la même taille que le nombre de colonnes dans la matrice de données
 ReDim signal(1 To n)
 
-ReDim Dset(1 To 10)
-
-' Boucle à travers chaque colonne de la matrice de données
+' Boucle à travers chaque colonne de la matrice de données pour calculer le signal de chaque action
 For i = 1 To n
     ' Extraction de la colonne de données spécifique à partir de la matrice
     Ri = extractColumn(data, i)
-    
-    ' Calcul du signal à partir de la colonne de données en prenant les 10 dernières rentabilités
-    For j = l - 12 To l-2
-        Dset(j - l + 13) = Ri(j)
-    Next j
-    signal(i) = computeSignal(Dset())
+    ' Calcul du signal à partir de la colonne de données en prenant les 11 dernières rentabilités
+    signal(i) = computeSignal(Ri)
+      
 Next i
-
 ' Renvoi du vecteur de signaux calculé
-monSignalVector = signal
-
+momSignalVector = signal
 
 End Function
 'Question 4:
-Function createIndex(vector() As Double) As Double()
+Function createIndex(vector() As Variant) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer           ' Nombre d'éléments dans le vecteur
-Dim vect() As Double       ' Index à deux colonnes
+Dim vect() As Variant       ' Index à deux colonnes
 Dim i As Integer           ' Variable de boucle
 
 ' Détermination du nombre d'éléments dans le vecteur
@@ -91,10 +81,10 @@ createIndex = vect
 
 End Function
 'Question 5:
-Function assignToPF(Matrix() As Double) As Double()
+Function assignToPF(Matrix() As Variant) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer           ' Nombre d'actions dans la matrice
-Dim vect() As Double       ' Vecteur à trois colonnes pour attribuer les actions aux portefeuilles
+Dim vect() As Variant       ' Vecteur à trois colonnes pour attribuer les actions aux portefeuilles
 Dim i As Integer           ' Variable de boucle pour les portefeuilles
 Dim j As Integer           ' Variable de boucle pour les actions dans chaque portefeuille
 
@@ -121,11 +111,11 @@ assignToPF = vect
 
 End Function
 'Question 6:
-Function weightsVector(Matrix() As Double, PFnumber As Integer) As Double()
+Function weightsVector(Matrix() As Variant, PFnumber As Integer) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer           ' Nombre d'actions dans la matrice
-Dim vect() As Double       ' Vecteur attribuant les actions aux portefeuilles
-Dim weights() As Double    ' Vecteur de poids pour le portefeuille spécifique
+Dim vect() As Variant       ' Vecteur attribuant les actions aux portefeuilles
+Dim weights() As Variant    ' Vecteur de poids pour le portefeuille spécifique
 Dim i As Integer           ' Variable de boucle
 
 ' Détermination du nombre d'actions dans la matrice
@@ -151,11 +141,11 @@ weightsVector = weights
 
 End Function
 'Question 7:
-Function portfolioReturn(returnsVector() As Double, weights() As Double) As Double
+Function portfolioReturn(returnsVector() As Variant, weights() As Variant) As Variant
 ' Déclaration des variables locales
 Dim n As Integer           ' Longueur du vecteur de rendements
 Dim M As Integer           ' Longueur du vecteur de poids
-Dim Rpf As Double          ' Rendement du portefeuille
+Dim Rpf As Variant          ' Rendement du portefeuille
 
 ' Détermination de la longueur du vecteur de rendements
 n = UBound(returnsVector)
@@ -185,27 +175,27 @@ Dim wsResults As Worksheet         ' Feuille de résultats
 ' Variables pour le traitement des données
 Dim nbDate As Integer              ' Nombre de lignes de données
 Dim nbStocks As Integer            ' Nombre de colonnes d'actions
-Dim data() As Double               ' Tableau pour stocker les données de la feuille de calcul
+Dim data() As Variant               ' Tableau pour stocker les données de la feuille de calcul
 Dim i As Integer                   ' Variable pour la boucle
 Dim j As Integer                   ' Variable pour la boucle
-Dim dataT() As Double              ' Tableau temporaire pour stocker les données sur les 11 mois précédents
+Dim dataT() As Variant              ' Tableau temporaire pour stocker les données sur les 11 mois précédents
 
 ' Variables pour les calculs
 Dim t As Integer                   ' Variable pour la boucle principale
-Dim returns() As Double            ' Tableau pour stocker les rendements
+Dim returns() As Variant            ' Tableau pour stocker les rendements
 Dim mounths As Integer             ' Variable pour la boucle sur les mois
 Dim Stocks As Integer              ' Variable pour la boucle sur les actions
-Dim signals() As Double            ' Tableau pour stocker les signaux
-Dim index() As Double              ' Tableau pour stocker l'index
+Dim signals() As Variant            ' Tableau pour stocker les signaux
+Dim index() As Variant              ' Tableau pour stocker l'index
 Dim indexR As Range                ' Plage pour l'index trié
-Dim indexS() As Double             ' Tableau pour stocker l'index trié
-Dim portfVector() As Double        ' Vecteur pour le portefeuille
+Dim indexS() As Variant             ' Tableau pour stocker l'index trié
+Dim portfVector() As Variant        ' Vecteur pour le portefeuille
 Dim PF As Integer                  ' Variable pour la boucle sur les portefeuilles
-Dim weights() As Double            ' Tableau pour stocker les poids
-Dim Results() As Double            ' Tableau pour stocker les résultats
-Dim cumResults() As Double         ' Tableau pour stocker les résultats cumulatifs
-Dim LSResults() As Double          ' Tableau pour stocker les rendements long-short
-Dim cumLSResults() As Double       ' Tableau pour stocker les rendements long-short cumulatifs
+Dim weights() As Variant            ' Tableau pour stocker les poids
+Dim Results() As Variant            ' Tableau pour stocker les résultats
+Dim cumResults() As Variant         ' Tableau pour stocker les résultats cumulatifs
+Dim LSResults() As Variant          ' Tableau pour stocker les rendements long-short
+Dim cumLSResults() As Variant       ' Tableau pour stocker les rendements long-short cumulatifs
 
 
 ' Définition des feuilles de calcul de données et de résultats
@@ -254,20 +244,11 @@ For t = 1 To nbDate - 12
     Next mounths
     
     ' Génération des signaux et création d'un index
-    signals = monSignalVector(dataT)
+    signals = momSignalVector(dataT)
     index = createIndex(signals)
-    Set indexR = wsResults.Range("R1:S100")
-    indexR.Value = index
-    With indexR.Sort(indexR.Columns(2), xlAscending)
-    End With
     
-    ' Transfert de l'index trié dans un tableau en mémoire
-    ReDim indexS(1 To indexR.Rows.Count, 1 To indexR.Columns.Count)
-    For i = 1 To indexR.Rows.Count
-        For j = 1 To indexR.Columns.Count
-            indexS(i, j) = indexR(i, j).Value
-        Next j
-    Next i
+    'Tri par ordre croissant du vecteur des signaux
+    indexS = WorksheetFunction.Sort(index, 2)
     
     ' Attribution des actions à chaque portefeuille
     portfVector = assignToPF(indexS)
@@ -287,9 +268,6 @@ For t = 1 To nbDate - 12
     LSResults(t) = Results(t, 5) - Results(t, 1)
     cumLSResults(t) = cumResults(t, 5) - cumResults(t, 1)
     
-    ' Nettoyage de la feuille de calcul des résultats
-    indexR.Clear
-    
 Next t
 
 
@@ -300,4 +278,3 @@ wsResults.Cells(2, 14).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpos
 wsResults.Cells(2, 15).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(cumLSResults)
 
 End Sub
-
