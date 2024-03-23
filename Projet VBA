@@ -54,8 +54,8 @@ For i = 1 To n
     Ri = extractColumn(data, i)
     
     ' Calcul du signal à partir de la colonne de données en prenant les 10 dernières rentabilités
-    For j = l - 9 To l
-        Dset(j - l + 10) = Ri(j)
+    For j = l - 12 To l-2
+        Dset(j - l + 13) = Ri(j)
     Next j
     signal(i) = computeSignal(Ri())
 Next i
