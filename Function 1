@@ -2,20 +2,24 @@
 where Matrix is a n rows by p columns array variable and colIndex is an integer. The
 function must return a column vector corresponding to the column colIndex of Matrix.
 
-Function extractColumn(Matrix() as Double, colIndex as Integer) as Double
-  'Variable de longueur
-  Dim NumL as Integer
-  'Variable de largeur
-  Dim NumC as Integer
-
-  'On définit la largeur et la longueur du tableau
-  NumL = UBound(Matrix,1)
-  NumC = UBound(Matrix,2)
-
-  'On adapte la taille du tableau
-  ReDim extractColumn(NumL,1)
-
-  For i=1 to NumL
-    extractColumn(i)=Matrix(i,colIndex)
-  Next i
+'Question 1:
+Function extractColumn(Matrix() As Variant, colIndex As Integer) As Variant()
+' Déclaration des variables locales
+Dim n As Integer        ' Nombre de lignes dans la matrice
+Dim i As Integer        ' Variable de boucle
+Dim Col() As Variant    ' Tableau pour stocker la colonne extraite
+    
+' Nombre de lignes dans la matrice
+n = UBound(Matrix, 1)
+    
+' Redimensionnement du tableau pour stocker la colonne extraite
+ReDim Col(1 To n)
+    
+' Boucle à travers les lignes de la matrice pour extraire la colonne spécifiée
+For i = 1 To n
+    Col(i) = Matrix(i, colIndex)   ' Extraction de la valeur de la colonne spécifiée pour chaque ligne
+Next i
+    
+' Renvoie la colonne extraite
+extractColumn = Col()
 End Function
