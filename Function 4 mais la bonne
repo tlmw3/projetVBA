@@ -3,12 +3,28 @@ vector containing the 100 momentum signal values. The function must return a 2-c
 array variable whose rst column contains the integers 1 to 100 (in that order), and whose
 second column is equal to the initial vector argument.
 
-Function createIndex(vector() as Single) as Double
-  Dim Tab() as Single
-  ReDim Tab(100,2)
+'Question 4:
+Function createIndex(vector() As Variant) As Variant()
+' Déclaration des variables locales
+Dim n As Integer           ' Nombre d'éléments dans le vecteur
+Dim vect() As Variant       ' Index à deux colonnes
+Dim i As Integer           ' Variable de boucle
 
-  For i=1 to 100
-    Tab(i,1)=i
-    Tab(i,2)=vector(i)
-  Next i
+' Détermination du nombre d'éléments dans le vecteur
+n = UBound(vector, 1)
+
+' Redimensionnement de l'index à deux colonnes pour qu'il ait le même nombre de lignes que le vecteur
+ReDim vect(1 To n, 1 To 2)
+
+' Boucle à travers chaque élément du vecteur
+For i = 1 To n
+    ' Stockage de l'indice de l'élément dans la première colonne de l'index
+    vect(i, 1) = i
+    ' Stockage de la valeur de l'élément dans la deuxième colonne de l'index
+    vect(i, 2) = vector(i)
+Next i
+
+' Renvoi de l'index à deux colonnes
+createIndex = vect
+
 End Function
