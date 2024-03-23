@@ -57,7 +57,7 @@ For i = 1 To n
     For j = l - 12 To l-2
         Dset(j - l + 13) = Ri(j)
     Next j
-    signal(i) = computeSignal(Ri())
+    signal(i) = computeSignal(Dset())
 Next i
 
 ' Renvoi du vecteur de signaux calculé
