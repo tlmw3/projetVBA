@@ -2,7 +2,14 @@
 needed returns to compute the momentum signal for stock i as per (1). The function must
 return the value of the momentum signal for stock i.
 
-Function computeSignal( Ri() as Double ) as Double
-  'Variable compteur de lignes du tableau Ri
-  computeSignal=worksheet.Function(Ri)
+'Question 2 :
+Function computeSignal(Ri() As Variant) As Variant
+' Déclaration des variables locales
+Dim s As Variant    ' Variable pour stocker la somme des éléments du vecteur
+    
+' Calcul de la somme des éléments du vecteur d'entrée
+s = WorksheetFunction.Sum(Ri)
+    
+' Renvoi du résultat (la somme)
+computeSignal = s
 End Function
