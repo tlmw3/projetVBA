@@ -1,0 +1,11 @@
+5. Write a function named assignToPF whose argument is Matrix, where Matrix is a 2-
+column array variable corresponding to the output of the createIndex function, where
+the second column of the output has previously been sorted by increasing momentum
+signal values. Function assignToPF must return a 3-column array variable such that the
+rst two columns are the same as Matrix, and the third column reports the value 1 for the
+20 stocks assigned to P1, 2 for the 20 stocks assigned to P2, ..., 5 for the 20 stocks assigned
+to P5.
+
+Function assignToPF(Matrix() as Double) as Double
+  
+End Function
