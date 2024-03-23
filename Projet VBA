@@ -1,3 +1,4 @@
+
 'Question 1:
 Function extractColumn(Matrix() As Variant, colIndex As Integer) As Variant()
 ' Déclaration des variables locales
@@ -19,7 +20,8 @@ Next i
 ' Renvoie la colonne extraite
 extractColumn = Col()
 End Function
-'Question 2:
+
+'Question 2 :
 Function computeSignal(Ri() As Variant) As Variant
 ' Déclaration des variables locales
 Dim s As Variant    ' Variable pour stocker la somme des éléments du vecteur
@@ -30,6 +32,7 @@ s = WorksheetFunction.Sum(Ri)
 ' Renvoi du résultat (la somme)
 computeSignal = s
 End Function
+
 'Question 3:
 Function momSignalVector(data() As Variant) As Variant()
 ' Déclaration des variables locales
@@ -37,6 +40,7 @@ Dim n As Integer           ' Nombre de colonnes dans la matrice de données
 Dim signal() As Variant     ' Vecteur de signaux
 Dim Ri() As Variant         ' Vecteur temporaire pour stocker une colonne de données
 Dim i As Integer           ' Variable de boucle
+
 ' Détermination du nombre de colonnes dans la matrice de données
 n = UBound(data, 2)
 
@@ -80,6 +84,7 @@ Next i
 createIndex = vect
 
 End Function
+
 'Question 5:
 Function assignToPF(Matrix() As Variant) As Variant()
 ' Déclaration des variables locales
@@ -110,6 +115,7 @@ Next i
 assignToPF = vect
 
 End Function
+
 'Question 6:
 Function weightsVector(Matrix() As Variant, PFnumber As Integer) As Variant()
 ' Déclaration des variables locales
@@ -140,6 +146,7 @@ Next i
 weightsVector = weights
 
 End Function
+
 'Question 7:
 Function portfolioReturn(returnsVector() As Variant, weights() As Variant) As Variant
 ' Déclaration des variables locales
@@ -165,6 +172,8 @@ Rpf = WorksheetFunction.SumProduct(returnsVector, weights)
 portfolioReturn = Rpf
 
 End Function
+
+
 'Question 8:
 Sub MomentumStratImplementation()
 
@@ -206,7 +215,7 @@ Set wsResults = Worksheets(2)
 nbDate = wsData.Cells(wsData.Rows.Count, 1).End(xlUp).Row - 1 ' Nombre de lignes de données (moins l'en-tête)
 nbStocks = wsData.Cells(1, 1).End(xlToRight).Column - 1 ' Nombre de colonnes d'actions (moins l'en-tête)
 
-' Vérification si le nombre d'actions est égal à 100 pour effectuer les calculs
+' Vérification si le nombre d'actions est égal à 100 pour effectuer les calculs !!!!!!! Est-ce que c'est vraiment nécessaire ? Perte de temps?
 If nbStocks <> 100 Then
     MsgBox "Il n'y a pas le bon noombre d'actions pour réaliser les calculs"
     Exit Sub
@@ -232,7 +241,7 @@ For t = 1 To nbDate - 12
     ' Extraction des rendements pour l'intervalle de 12 mois
     ReDim returns(1 To nbStocks)
     For Stocks = 1 To nbStocks
-        returns(Stocks) = data(t + 11, Stocks)
+        returns(Stocks) = data(t + 12, Stocks)
     Next Stocks
     
     ' Création d'une matrice temporaire pour les 11 mois précédents
@@ -278,3 +287,4 @@ wsResults.Cells(2, 14).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpos
 wsResults.Cells(2, 15).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(cumLSResults)
 
 End Sub
+
