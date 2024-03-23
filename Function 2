@@ -1,0 +1,8 @@
+2. Write a function named computeSignal whose argument is Ri, where Ri contains the
+needed returns to compute the momentum signal for stock i as per (1). The function must
+return the value of the momentum signal for stock i.
+
+Function computeSignal( Ri() as Double ) as Double
+  'Variable compteur de lignes du tableau Ri
+  computeSignal=worksheet.Function(Ri)
+End Function
