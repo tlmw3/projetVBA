@@ -1,0 +1,30 @@
+7. Write a function named portfolioReturn whose arguments are returnsVector and
+weights, where returnsVector is a column vector of returns and weights is a column
+vector of weights. Denoting R the vector of returns corresponding to returnsVector, and
+w the vector of weights corresponding to weights, the function must return w′R
+
+'Question 7:
+Function portfolioReturn(returnsVector() As Variant, weights() As Variant) As Variant
+' Déclaration des variables locales
+Dim n As Integer           ' Longueur du vecteur de rendements
+Dim M As Integer           ' Longueur du vecteur de poids
+Dim Rpf As Variant          ' Rendement du portefeuille
+
+' Détermination de la longueur du vecteur de rendements
+n = UBound(returnsVector)
+
+' Détermination de la longueur du vecteur de poids
+M = UBound(weights)
+
+' Vérification si les vecteurs de rendements et de poids ont la même longueur
+If n <> M Then
+    MsgBox "Les vecteurs de rendements et de poids doivent avoir la même longueur."
+End If
+
+' Calcul du rendement du portefeuille en utilisant le produit scalaire entre les vecteurs de rendements et de poids
+Rpf = WorksheetFunction.SumProduct(returnsVector, weights)
+
+' Renvoi du rendement du portefeuille
+portfolioReturn = Rpf
+
+End Function
