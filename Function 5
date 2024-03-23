@@ -6,6 +6,33 @@ signal values. Function assignToPF must return a 3-column array variable such th
 20 stocks assigned to P1, 2 for the 20 stocks assigned to P2, ..., 5 for the 20 stocks assigned
 to P5.
 
-Function assignToPF(Matrix() as Double) as Double
-  
+'Question 5:
+Function assignToPF(Matrix() As Variant) As Variant()
+' Déclaration des variables locales
+Dim n As Integer           ' Nombre d'actions dans la matrice
+Dim vect() As Variant       ' Vecteur à trois colonnes pour attribuer les actions aux portefeuilles
+Dim i As Integer           ' Variable de boucle pour les portefeuilles
+Dim j As Integer           ' Variable de boucle pour les actions dans chaque portefeuille
+
+' Détermination du nombre d'actions dans la matrice
+n = UBound(Matrix, 1)
+
+' Redimensionnement du vecteur à trois colonnes pour stocker les données d'attribution des actions aux portefeuilles
+ReDim vect(1 To n, 1 To 3)
+
+' Boucle pour attribuer chaque action à l'un des cinq portefeuilles
+For i = 1 To 5
+    For j = 1 To 20
+        ' Attribution de l'action à la première colonne (indice de l'action) du vecteur
+        vect((i - 1) * 20 + j, 1) = Matrix((i - 1) * 20 + j, 1)
+        ' Attribution de l'action à la deuxième colonne (valeur de l'action) du vecteur
+        vect((i - 1) * 20 + j, 2) = Matrix((i - 1) * 20 + j, 2)
+        ' Attribution du portefeuille à la troisième colonne du vecteur
+        vect((i - 1) * 20 + j, 3) = i
+    Next j
+Next i
+
+' Renvoi du vecteur attribuant les actions aux portefeuilles
+assignToPF = vect
+
 End Function
