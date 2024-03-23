@@ -1,0 +1,14 @@
+4. Write a function named createIndex whose argument is vector, where vector is a column
+vector containing the 100 momentum signal values. The function must return a 2-column
+array variable whose rst column contains the integers 1 to 100 (in that order), and whose
+second column is equal to the initial vector argument.
+
+Function createIndex(vector() as Single) as Double
+  Dim Tab() as Single
+  ReDim Tab(100,2)
+
+  For i=1 to 100
+    Tab(i,1)=i
+    Tab(i,2)=vector(i)
+  Next i
+End Function
