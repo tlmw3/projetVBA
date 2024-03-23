@@ -75,7 +75,7 @@ For t = 1 To nbDate - 12
     ' Extraction des rendements pour l'intervalle de 12 mois
     ReDim returns(1 To nbStocks)
     For Stocks = 1 To nbStocks
-        returns(Stocks) = data(t + 11, Stocks)
+        returns(Stocks) = data(t + 12, Stocks)
     Next Stocks
     
     ' Création d'une matrice temporaire pour les 11 mois précédents
