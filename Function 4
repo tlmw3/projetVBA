@@ -1,0 +1,22 @@
+3. Write a function named momSignalVector whose argument is data, where data is an array
+variable containing the returns of the 100 stocks over the period on which the momentum
+signal of each stock must be computed. The function must return a column vector with
+the 100 momentum signal values.
+
+Function momSignalVector( data() as Double) as Double
+  'Variable nbr de colonnes
+  Dim NumC as Byte
+  'Variable Nbr de lignes
+  Dim NumL as Integer
+  'Attribution de leurs valeurs
+  NumC=100
+  NumL=UBound(data,1)
+
+  'Redimensionner le tableau contenant les 100 signaux
+  ReDim momSignalVector(100,1)
+  For i=1 to 100
+    'pour chaque actif, on isole les rentabilités de l'actif en question et on calcule le signal pour enfin l'intégrer au tableau _
+    momsSignalVector
+    momSignalVector(i)=computeSignal(extractColumn(data,i))
+  Next i
+End Function
