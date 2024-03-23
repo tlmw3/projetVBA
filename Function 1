@@ -1,1 +1,21 @@
+1. Write a function named extractColumn whose arguments are Matrix and colIndex,
+where Matrix is a n rows by p columns array variable and colIndex is an integer. The
+function must return a column vector corresponding to the column colIndex of Matrix.
 
+Function extractColumn(Matrix() as Double, colIndex as Integer) as Double
+  'Variable de longueur
+  Dim NumL as Integer
+  'Variable de largeur
+  Dim NumC as Integer
+
+  'On définit la largeur et la longueur du tableau
+  NumL = UBound(Matrix,1)
+  NumC = UBound(Matrix,2)
+
+  'On adapte la taille du tableau
+  ReDim extractColumn(NumL,1)
+
+  For i=1 to NumL
+    extractColumn(i)=Matrix(i,colIndex)
+  Next i
+End Function
