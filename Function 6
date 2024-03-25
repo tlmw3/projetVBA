@@ -7,15 +7,11 @@ weight.
 Function weightsVector(Matrix() As Variant, PFnumber As Integer) As Variant()
 ' Déclaration des variables locales
 Dim n As Integer           ' Nombre d'actions dans la matrice
-Dim vect() As Variant       ' Vecteur attribuant les actions aux portefeuilles
 Dim weights() As Variant    ' Vecteur de poids pour le portefeuille spécifique
 Dim i As Integer           ' Variable de boucle
 
 ' Détermination du nombre d'actions dans la matrice
 n = UBound(Matrix, 1)
-
-' Attribution des actions aux portefeuilles à l'aide de la fonction assignToPF
-vect = assignToPF(Matrix)
 
 ' Redimensionnement du vecteur de poids pour qu'il ait le même nombre d'éléments que le nombre d'actions
 ReDim weights(1 To n)
@@ -23,9 +19,9 @@ ReDim weights(1 To n)
 ' Boucle pour attribuer les poids aux actions du portefeuille spécifique
 For i = 1 To n
     ' Vérification si l'action appartient au portefeuille spécifié (PFnumber)
-    If vect(i, 3) = PFnumber Then
+    If Matrix(i, 3) = PFnumber Then
         ' Attribution du poids à l'action correspondante dans le vecteur de poids
-        weights(vect(i, 1)) = 0.05   ' Ici, le poids est fixé à 0.05 pour chaque action appartenant au portefeuille spécifié
+        weights(Matrix(i, 1)) = 0.05   ' Ici, le poids est fixé à 0.05 pour chaque action appartenant au portefeuille spécifié
     End If
 Next i
 
