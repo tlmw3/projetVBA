@@ -16,11 +16,6 @@ n = UBound(returnsVector)
 ' Détermination de la longueur du vecteur de poids
 M = UBound(weights)
 
-' Vérification si les vecteurs de rendements et de poids ont la même longueur
-If n <> M Then
-    MsgBox "Les vecteurs de rendements et de poids doivent avoir la même longueur."
-End If
-
 ' Calcul du rendement du portefeuille en utilisant le produit scalaire entre les vecteurs de rendements et de poids
 Rpf = WorksheetFunction.SumProduct(returnsVector, weights)
 
