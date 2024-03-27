@@ -6,15 +6,7 @@ w the vector of weights corresponding to weights, the function must return w′R
 'Question 7:
 Function portfolioReturn(returnsVector() As Variant, weights() As Variant) As Variant
 ' Déclaration des variables locales
-Dim n As Integer           ' Longueur du vecteur de rendements
-Dim M As Integer           ' Longueur du vecteur de poids
 Dim Rpf As Variant          ' Rendement du portefeuille
-
-' Détermination de la longueur du vecteur de rendements
-n = UBound(returnsVector)
-
-' Détermination de la longueur du vecteur de poids
-M = UBound(weights)
 
 ' Calcul du rendement du portefeuille en utilisant le produit scalaire entre les vecteurs de rendements et de poids
 Rpf = WorksheetFunction.SumProduct(returnsVector, weights)
