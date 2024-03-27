@@ -168,6 +168,10 @@ End Function
 'Question 8:
 Sub MomentumStratImplementation()
 
+Application.Calculation = xlCalculationManual
+Application.ScreenUpdating = False
+
+
 ' Feuilles de calcul
 Dim wsData As Worksheet            ' Feuille de données
 Dim wsResults As Worksheet         ' Feuille de résultats
@@ -276,6 +280,7 @@ wsResults.Cells(2, 2).Resize(nbDate - 12, 5).Value = Results
 wsResults.Cells(2, 8).Resize(nbDate - 12, 5).Value = cumResults
 wsResults.Cells(2, 14).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(LSResults)
 wsResults.Cells(2, 15).Resize(nbDate - 12, 1).Value = WorksheetFunction.Transpose(cumLSResults)
-
+Application.ScreenUpdating = True
+Application.Calculation = xlCalculationAutomatic
 End Sub
 
