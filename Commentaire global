@@ -1,0 +1,41 @@
+Fonction extractColumn : On extrait une colonne d'une matrice 
+
+Fonction computeSignal : On fait la somme des nombres dans un vecteur
+
+Fonction momSignalVector : à l'aide d'une boucle for on utilise pour chaque colonne la fonction extractColumn pour extraire
+un vecteur puis computeSignal pour additionner les valeurs de ce vecteur pour créer le signal. Enfin
+pour chaque action on ajoute le signal au vecteur de signaux)
+
+Fonction createIndex : à l'aide d'une boucle for, donne pour chaque ligne (qui correspond à une action)
+le numéro de référence de l'action en 1ere colonne et le signal de l'action en deuxièeme colonne.
+
+Fonction assignToPF : À travers une boucle for, ce programme donne la valeur de 1 aux 1er groupe de 20 actions,
+2 au 2eme groupe de 20 actions... Tout ceci jusqu'à 5 pour le 5e groupe de 20 actions.
+
+Fonction weightsVector : À l'aide de la boucle for, on cherche l'action de référence i dans la première colonne. Une fois
+sa référece trouvée, on vérifie le groupe auquel elle appartient. Dans le cas où le portefeuille correspond 
+à celui entré en argument, il donne 0.005 à la ième valeur du vecteur poids.
+
+Fonction portfolioReturn : Elle renvoie le ROI d'un portefeuille en faisant le produit scalaire
+entre le vecteurs rentabilité et le vecteur poids
+
+Procédure MomentumStratImplementation: 
+
+1- Stocker les données de la plage de données dans des tableaux de type Array
+
+2- Créer une boucle pour chaque mois i de la période disponible à partir du 12e mois disponible
+
+  2.1- Extraire les rendements des 11 mois précédents.
+  2.2- Générer le vecteur de signaux à l'aide de momSignalVector.
+  2.3- Générer et ajouter les indexs d'actions pour le vecteur de signaux à l'aide de createIndex
+  2.4- Trier dans l'ordre croissant les signaux de ce même tableau de type Array
+  2.5- Assigner les portefeuilles de 1 à 5 pour ce mois i à l'aide de assignToPF
+  2.6- Créer une boucle for pour chaque portefeuille
+    2.6.1- Calculer la performance de chaque portefeuille et la stocker dans la matrice des rentabilités
+    2.6.2- Calculer la performace cumulée de chaque portefeuille et la stocker dans 
+          la matrice des rentabilités cumulées
+  2.7- Calculer et stocker les rendements de la stratégie long-short
+3.Stocker les valeurs des rentabilités de portefeuilles et rentabilités cumulées sur la feuille "Results".
+
+contenues en tableau de type Array  
+    2.6.2- Ajouter cette performance 
