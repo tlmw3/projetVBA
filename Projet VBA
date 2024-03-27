@@ -134,13 +134,7 @@ End Function
 'Question 7:
 Function portfolioReturn(returnsVector() As Variant, weights() As Variant) As Variant
 
-Dim n As Integer           ' Longueur du vecteur de rendements
-Dim M As Integer           ' Longueur du vecteur de poids
 Dim Rpf As Variant          ' Rendement du portefeuille
-
-n = UBound(returnsVector)
-
-M = UBound(weights)
 
 ' Calcul du rendement du portefeuille en utilisant le produit scalaire entre les vecteurs de rendements et de poids
 Rpf = WorksheetFunction.SumProduct(returnsVector, weights)
